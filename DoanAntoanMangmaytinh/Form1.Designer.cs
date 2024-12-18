@@ -62,6 +62,7 @@
             PlainTextBox2 = new TextBox();
             label10 = new Label();
             DetailNumberBox = new ComboBox();
+            InputButton = new Button();
             E_DTab.SuspendLayout();
             EncryptTab.SuspendLayout();
             DecryptTab.SuspendLayout();
@@ -76,6 +77,7 @@
             EncyptButton.TabIndex = 0;
             EncyptButton.Text = "Mã Hóa";
             EncyptButton.UseVisualStyleBackColor = true;
+            EncyptButton.Click += EncyptButton_Click;
             // 
             // EraseAllButton1
             // 
@@ -86,6 +88,7 @@
             EraseAllButton1.TabIndex = 1;
             EraseAllButton1.Text = "Xóa hết";
             EraseAllButton1.UseVisualStyleBackColor = true;
+            EraseAllButton1.Click += EraseAllButton1_Click;
             // 
             // FileOpenButton1
             // 
@@ -96,6 +99,7 @@
             FileOpenButton1.TabIndex = 2;
             FileOpenButton1.Text = "Lấy từ File";
             FileOpenButton1.UseVisualStyleBackColor = true;
+            FileOpenButton1.Click += FileOpenButton1_Click;
             // 
             // MoveDecryptButton
             // 
@@ -106,6 +110,7 @@
             MoveDecryptButton.TabIndex = 3;
             MoveDecryptButton.Text = "Chuyển qua giải mã";
             MoveDecryptButton.UseVisualStyleBackColor = true;
+            MoveDecryptButton.Click += MoveDecryptButton_Click;
             // 
             // GenerateKeyButton
             // 
@@ -123,6 +128,7 @@
             PTextbox.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             PTextbox.Location = new Point(366, 116);
             PTextbox.Name = "PTextbox";
+            PTextbox.ReadOnly = true;
             PTextbox.Size = new Size(211, 33);
             PTextbox.TabIndex = 6;
             // 
@@ -131,6 +137,7 @@
             QTextBox.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             QTextBox.Location = new Point(657, 115);
             QTextBox.Name = "QTextBox";
+            QTextBox.ReadOnly = true;
             QTextBox.Size = new Size(211, 33);
             QTextBox.TabIndex = 7;
             // 
@@ -162,6 +169,7 @@
             DecryptButton.TabIndex = 11;
             DecryptButton.Text = "Giải Mã";
             DecryptButton.UseVisualStyleBackColor = true;
+            DecryptButton.Click += DecryptButton_Click;
             // 
             // label1
             // 
@@ -234,6 +242,7 @@
             MoveEncryptButton.TabIndex = 18;
             MoveEncryptButton.Text = "Chuyển qua mã hóa";
             MoveEncryptButton.UseVisualStyleBackColor = true;
+            MoveEncryptButton.Click += MoveEncryptButton_Click;
             // 
             // EraseAllButton2
             // 
@@ -244,6 +253,7 @@
             EraseAllButton2.TabIndex = 19;
             EraseAllButton2.Text = "Xóa hết";
             EraseAllButton2.UseVisualStyleBackColor = true;
+            EraseAllButton2.Click += EraseAllButton2_Click;
             // 
             // EraseTextButton2
             // 
@@ -254,6 +264,7 @@
             EraseTextButton2.TabIndex = 20;
             EraseTextButton2.Text = "Xóa text";
             EraseTextButton2.UseVisualStyleBackColor = true;
+            EraseTextButton2.Click += EraseTextButton2_Click;
             // 
             // EraseTextButton1
             // 
@@ -264,6 +275,7 @@
             EraseTextButton1.TabIndex = 21;
             EraseTextButton1.Text = "Xóa text";
             EraseTextButton1.UseVisualStyleBackColor = true;
+            EraseTextButton1.Click += EraseTextButton1_Click;
             // 
             // E_DTab
             // 
@@ -391,6 +403,7 @@
             FileOpenButton2.TabIndex = 12;
             FileOpenButton2.Text = "Lấy từ File";
             FileOpenButton2.UseVisualStyleBackColor = true;
+            FileOpenButton2.Click += FileOpenButton2_Click;
             // 
             // PlainTextBox2
             // 
@@ -406,7 +419,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new Point(87, 155);
+            label10.Location = new Point(90, 180);
             label10.Name = "label10";
             label10.Size = new Size(175, 27);
             label10.TabIndex = 23;
@@ -415,12 +428,25 @@
             // 
             // DetailNumberBox
             // 
+            DetailNumberBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            DetailNumberBox.Enabled = false;
             DetailNumberBox.FormattingEnabled = true;
             DetailNumberBox.Items.AddRange(new object[] { "Thập phân", "Nhị phân", "Thập lục phân" });
-            DetailNumberBox.Location = new Point(74, 198);
+            DetailNumberBox.Location = new Point(77, 223);
             DetailNumberBox.Name = "DetailNumberBox";
             DetailNumberBox.Size = new Size(198, 33);
             DetailNumberBox.TabIndex = 24;
+            // 
+            // InputButton
+            // 
+            InputButton.Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            InputButton.Location = new Point(77, 121);
+            InputButton.Name = "InputButton";
+            InputButton.Size = new Size(198, 35);
+            InputButton.TabIndex = 25;
+            InputButton.Text = "Nhập thủ công";
+            InputButton.UseVisualStyleBackColor = true;
+            InputButton.Click += InputButton_Click;
             // 
             // Form1
             // 
@@ -428,6 +454,7 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1214, 671);
+            Controls.Add(InputButton);
             Controls.Add(DetailNumberBox);
             Controls.Add(label10);
             Controls.Add(E_DTab);
@@ -492,5 +519,6 @@
         private Label label8;
         private Label label10;
         private ComboBox DetailNumberBox;
+        private Button InputButton;
     }
 }
