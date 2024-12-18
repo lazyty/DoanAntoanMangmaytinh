@@ -35,7 +35,7 @@
             GenerateKeyButton = new Button();
             PTextbox = new TextBox();
             QTextBox = new TextBox();
-            PubicKeyTextBox = new TextBox();
+            PublicKeyTextBox = new TextBox();
             PrivateKeyTextBox = new TextBox();
             DecryptButton = new Button();
             label1 = new Label();
@@ -57,9 +57,9 @@
             DecryptTab = new TabPage();
             label9 = new Label();
             label8 = new Label();
-            CypherTextBox2 = new TextBox();
-            FileOpenButton2 = new Button();
             PlainTextBox2 = new TextBox();
+            FileOpenButton2 = new Button();
+            CypherTextBox2 = new TextBox();
             label10 = new Label();
             DetailNumberBox = new ComboBox();
             InputButton = new Button();
@@ -125,31 +125,35 @@
             // 
             // PTextbox
             // 
+            PTextbox.Enabled = false;
             PTextbox.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             PTextbox.Location = new Point(366, 116);
             PTextbox.Name = "PTextbox";
             PTextbox.ReadOnly = true;
             PTextbox.Size = new Size(211, 33);
             PTextbox.TabIndex = 6;
+            PTextbox.Leave += PTextbox_Leave;
             // 
             // QTextBox
             // 
+            QTextBox.Enabled = false;
             QTextBox.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             QTextBox.Location = new Point(657, 115);
             QTextBox.Name = "QTextBox";
             QTextBox.ReadOnly = true;
             QTextBox.Size = new Size(211, 33);
             QTextBox.TabIndex = 7;
+            QTextBox.Leave += QTextBox_Leave;
             // 
-            // PubicKeyTextBox
+            // PublicKeyTextBox
             // 
-            PubicKeyTextBox.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            PubicKeyTextBox.Location = new Point(470, 172);
-            PubicKeyTextBox.Name = "PubicKeyTextBox";
-            PubicKeyTextBox.ReadOnly = true;
-            PubicKeyTextBox.Size = new Size(557, 33);
-            PubicKeyTextBox.TabIndex = 8;
-            PubicKeyTextBox.TextChanged += PubicKeyTextBox_TextChanged;
+            PublicKeyTextBox.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            PublicKeyTextBox.Location = new Point(470, 172);
+            PublicKeyTextBox.Name = "PublicKeyTextBox";
+            PublicKeyTextBox.ReadOnly = true;
+            PublicKeyTextBox.Size = new Size(557, 33);
+            PublicKeyTextBox.TabIndex = 8;
+            PublicKeyTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // PrivateKeyTextBox
             // 
@@ -159,11 +163,12 @@
             PrivateKeyTextBox.ReadOnly = true;
             PrivateKeyTextBox.Size = new Size(557, 33);
             PrivateKeyTextBox.TabIndex = 9;
+            PrivateKeyTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // DecryptButton
             // 
             DecryptButton.Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DecryptButton.Location = new Point(609, 142);
+            DecryptButton.Location = new Point(612, 144);
             DecryptButton.Name = "DecryptButton";
             DecryptButton.Size = new Size(212, 34);
             DecryptButton.TabIndex = 11;
@@ -333,6 +338,7 @@
             CypherTextBox1.Location = new Point(204, 92);
             CypherTextBox1.Multiline = true;
             CypherTextBox1.Name = "CypherTextBox1";
+            CypherTextBox1.ReadOnly = true;
             CypherTextBox1.Size = new Size(617, 33);
             CypherTextBox1.TabIndex = 10;
             // 
@@ -350,9 +356,9 @@
             DecryptTab.BackColor = SystemColors.GradientInactiveCaption;
             DecryptTab.Controls.Add(label9);
             DecryptTab.Controls.Add(label8);
-            DecryptTab.Controls.Add(CypherTextBox2);
-            DecryptTab.Controls.Add(FileOpenButton2);
             DecryptTab.Controls.Add(PlainTextBox2);
+            DecryptTab.Controls.Add(FileOpenButton2);
+            DecryptTab.Controls.Add(CypherTextBox2);
             DecryptTab.Controls.Add(EraseTextButton1);
             DecryptTab.Controls.Add(MoveEncryptButton);
             DecryptTab.Controls.Add(DecryptButton);
@@ -371,9 +377,9 @@
             label9.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label9.Location = new Point(23, 96);
             label9.Name = "label9";
-            label9.Size = new Size(168, 27);
+            label9.Size = new Size(167, 27);
             label9.TabIndex = 26;
-            label9.Text = "Văn bản mã hóa";
+            label9.Text = "Văn bản giải mã";
             // 
             // label8
             // 
@@ -381,18 +387,18 @@
             label8.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label8.Location = new Point(23, 39);
             label8.Name = "label8";
-            label8.Size = new Size(132, 27);
+            label8.Size = new Size(168, 27);
             label8.TabIndex = 25;
-            label8.Text = "Văn bản gốc";
-            label8.Click += label8_Click;
+            label8.Text = "Văn bản mã hóa";
             // 
-            // CypherTextBox2
+            // PlainTextBox2
             // 
-            CypherTextBox2.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            CypherTextBox2.Location = new Point(207, 91);
-            CypherTextBox2.Name = "CypherTextBox2";
-            CypherTextBox2.Size = new Size(617, 33);
-            CypherTextBox2.TabIndex = 24;
+            PlainTextBox2.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            PlainTextBox2.Location = new Point(207, 91);
+            PlainTextBox2.Name = "PlainTextBox2";
+            PlainTextBox2.ReadOnly = true;
+            PlainTextBox2.Size = new Size(617, 33);
+            PlainTextBox2.TabIndex = 24;
             // 
             // FileOpenButton2
             // 
@@ -405,15 +411,14 @@
             FileOpenButton2.UseVisualStyleBackColor = true;
             FileOpenButton2.Click += FileOpenButton2_Click;
             // 
-            // PlainTextBox2
+            // CypherTextBox2
             // 
-            PlainTextBox2.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            PlainTextBox2.Location = new Point(207, 33);
-            PlainTextBox2.Multiline = true;
-            PlainTextBox2.Name = "PlainTextBox2";
-            PlainTextBox2.Size = new Size(617, 33);
-            PlainTextBox2.TabIndex = 23;
-            PlainTextBox2.TextChanged += PlainTextBox2_TextChanged;
+            CypherTextBox2.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CypherTextBox2.Location = new Point(207, 33);
+            CypherTextBox2.Multiline = true;
+            CypherTextBox2.Name = "CypherTextBox2";
+            CypherTextBox2.Size = new Size(617, 33);
+            CypherTextBox2.TabIndex = 23;
             // 
             // label10
             // 
@@ -424,18 +429,18 @@
             label10.Size = new Size(175, 27);
             label10.TabIndex = 23;
             label10.Text = "Chọn cơ sở nhập";
-            label10.Click += label10_Click;
             // 
             // DetailNumberBox
             // 
             DetailNumberBox.DropDownStyle = ComboBoxStyle.DropDownList;
             DetailNumberBox.Enabled = false;
             DetailNumberBox.FormattingEnabled = true;
-            DetailNumberBox.Items.AddRange(new object[] { "Thập phân", "Nhị phân", "Thập lục phân" });
+            DetailNumberBox.Items.AddRange(new object[] { "Không", "Thập phân", "Nhị phân", "Thập lục phân" });
             DetailNumberBox.Location = new Point(77, 223);
             DetailNumberBox.Name = "DetailNumberBox";
             DetailNumberBox.Size = new Size(198, 33);
             DetailNumberBox.TabIndex = 24;
+            DetailNumberBox.DropDownClosed += DropDownClosed;
             // 
             // InputButton
             // 
@@ -465,7 +470,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(PrivateKeyTextBox);
-            Controls.Add(PubicKeyTextBox);
+            Controls.Add(PublicKeyTextBox);
             Controls.Add(QTextBox);
             Controls.Add(PTextbox);
             Controls.Add(GenerateKeyButton);
@@ -492,7 +497,7 @@
         private Button GenerateKeyButton;
         private TextBox PTextbox;
         private TextBox QTextBox;
-        private TextBox PubicKeyTextBox;
+        private TextBox PublicKeyTextBox;
         private TextBox PrivateKeyTextBox;
         private Button DecryptButton;
         private Label label1;
@@ -511,8 +516,8 @@
         private TextBox CypherTextBox1;
         private TextBox PlainTextBox1;
         private Button FileOpenButton2;
-        private TextBox PlainTextBox2;
         private TextBox CypherTextBox2;
+        private TextBox PlainTextBox2;
         private Label label7;
         private Label label6;
         private Label label9;
