@@ -292,6 +292,7 @@ namespace DoanAntoanMangmaytinh
             QTextBox.Text = "";
             PublicKeyTextBox.Text = "";
             PrivateKeyTextBox.Text = "";
+            ETextBox.Text = "";
 
         }
 
@@ -387,6 +388,7 @@ namespace DoanAntoanMangmaytinh
             QTextBox.Text = "";
             PublicKeyTextBox.Text = "";
             PrivateKeyTextBox.Text = "";
+            ETextBox.Text = "";
 
         }
 
@@ -411,6 +413,7 @@ namespace DoanAntoanMangmaytinh
             QTextBox.Text = "";
             PublicKeyTextBox.Text = "";
             PrivateKeyTextBox.Text = "";
+            ETextBox.Text = "";
         }
 
         private void PTextbox_Leave(object sender, EventArgs e)
@@ -453,6 +456,52 @@ namespace DoanAntoanMangmaytinh
                     MessageBox.Show("Dữ liệu đã được xuất ra file.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void E_D_SelectIndexChanged(object sender, EventArgs e)
+        {
+            if (E_DTab.SelectedIndex == 1)
+            {
+                ETextBox.Enabled = true;
+                UpdateEButton.Enabled = true;
+            }
+            else
+            {
+                ETextBox.Enabled = false;
+                UpdateEButton.Enabled = false;
+            }
+        }
+
+        private void UpdateEButton_Click(object sender, EventArgs e)
+        {
+            string newEText = ETextBox.Text; // ETextBox là TextBox chứa giá trị E mới
+            BigInteger newE;
+
+            if (!BigInteger.TryParse(newEText, out newE))
+            {
+                MessageBox.Show("E phải là một số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (newE <= 1 || newE >= phi)
+            {
+                MessageBox.Show($"E phải nằm trong khoảng (1, {phi})!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (GCD(newE, phi) != 1)
+            {
+                MessageBox.Show("E phải nguyên tố cùng nhau với φ(n)!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            num_e = newE;
+            num_d = ModInverse(num_e, phi);
+
+            MessageBox.Show("Số E đã được cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            PublicKeyTextBox.Text = $"e = {num_e}, n = {num_n}";
+            PrivateKeyTextBox.Text = $"d = {num_d}, n = {num_n}";
         }
     }
 }

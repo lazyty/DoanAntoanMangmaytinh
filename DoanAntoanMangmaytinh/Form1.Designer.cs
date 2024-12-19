@@ -65,6 +65,9 @@
             label10 = new Label();
             DetailNumberBox = new ComboBox();
             InputButton = new Button();
+            UpdateEButton = new Button();
+            ETextBox = new TextBox();
+            label11 = new Label();
             E_DTab.SuspendLayout();
             EncryptTab.SuspendLayout();
             DecryptTab.SuspendLayout();
@@ -293,6 +296,7 @@
             E_DTab.SelectedIndex = 0;
             E_DTab.Size = new Size(1072, 327);
             E_DTab.TabIndex = 22;
+            E_DTab.SelectedIndexChanged += E_D_SelectIndexChanged;
             // 
             // EncryptTab
             // 
@@ -480,12 +484,46 @@
             InputButton.UseVisualStyleBackColor = true;
             InputButton.Click += InputButton_Click;
             // 
+            // UpdateEButton
+            // 
+            UpdateEButton.Enabled = false;
+            UpdateEButton.Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            UpdateEButton.Location = new Point(1044, 271);
+            UpdateEButton.Name = "UpdateEButton";
+            UpdateEButton.Size = new Size(94, 38);
+            UpdateEButton.TabIndex = 28;
+            UpdateEButton.Text = "Sửa E";
+            UpdateEButton.UseVisualStyleBackColor = true;
+            UpdateEButton.Click += UpdateEButton_Click;
+            // 
+            // ETextBox
+            // 
+            ETextBox.Enabled = false;
+            ETextBox.Location = new Point(701, 275);
+            ETextBox.Multiline = true;
+            ETextBox.Name = "ETextBox";
+            ETextBox.Size = new Size(326, 34);
+            ETextBox.TabIndex = 29;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(598, 280);
+            label11.Name = "label11";
+            label11.Size = new Size(97, 25);
+            label11.TabIndex = 30;
+            label11.Text = "Số E Mới";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(144F, 144F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = SystemColors.ButtonFace;
             ClientSize = new Size(1214, 671);
+            Controls.Add(label11);
+            Controls.Add(UpdateEButton);
+            Controls.Add(ETextBox);
             Controls.Add(InputButton);
             Controls.Add(DetailNumberBox);
             Controls.Add(label10);
@@ -554,5 +592,8 @@
         private Button InputButton;
         private Button ExportToFileButton1;
         private Button ExportToFileButton2;
+        private Button UpdateEButton;
+        private TextBox ETextBox;
+        private Label label11;
     }
 }
