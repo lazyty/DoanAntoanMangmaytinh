@@ -140,6 +140,8 @@ namespace DoanAntoanMangmaytinh
         }
         private bool IsBinary(string input)
         {
+            if (string.IsNullOrEmpty(input)) return false;
+
             foreach (char c in input)
             {
                 if (c != '0' && c != '1')
@@ -151,6 +153,8 @@ namespace DoanAntoanMangmaytinh
         }
         private bool IsHexadecimal(string input)
         {
+            if (string.IsNullOrEmpty(input)) return false;
+
             foreach (char c in input)
             {
                 if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f')))
@@ -162,16 +166,33 @@ namespace DoanAntoanMangmaytinh
         }
         private BigInteger ParseBinary(string binaryText)
         {
-            return BigInteger.Parse(binaryText, System.Globalization.NumberStyles.AllowLeadingWhite | System.Globalization.NumberStyles.AllowTrailingWhite, System.Globalization.CultureInfo.InvariantCulture);
+            if (string.IsNullOrEmpty(binaryText) || !IsBinary(binaryText))
+            {
+                throw new ArgumentException("Invalid binary format");
+            }
+
+            return new BigInteger(Convert.ToInt64(binaryText, 2));
         }
 
         private BigInteger ParseHexadecimal(string hexText)
         {
-            return BigInteger.Parse(hexText, System.Globalization.NumberStyles.HexNumber);
+            if (string.IsNullOrEmpty(hexText) || !IsHexadecimal(hexText))
+            {
+                throw new ArgumentException("Invalid hexadecimal format");
+            }
+
+            try
+            {
+                return BigInteger.Parse(hexText, System.Globalization.NumberStyles.HexNumber);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException("Invalid hexadecimal format");
+            }
         }
         private bool IsValueAccepted()
         {
-            string selectedInputType = DetailNumberBox.SelectedItem?.ToString() ?? "Không";
+            int selectedIndex = DetailNumberBox.SelectedIndex;
             string pText = PTextbox.Text;
             string qText = QTextBox.Text;
 
@@ -180,45 +201,42 @@ namespace DoanAntoanMangmaytinh
                 MessageBox.Show("Vui lòng nhập dữ liệu để tiếp tục!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
             BigInteger p, q;
-            try
+
+            switch (selectedIndex)
             {
-                switch (selectedInputType)
-                {
-                    case "Thập phân":
-                        p = BigInteger.Parse(pText);
-                        q = BigInteger.Parse(qText);
-                        break;
-
-                    case "Nhị phân":
-                        if (!IsBinary(pText) || !IsBinary(qText))
-                        {
-                            MessageBox.Show("P và Q phải là số nhị phân!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
-                        }
-                        p = ParseBinary(pText);
-                        q = ParseBinary(qText);
-                        break;
-
-                    case "Thập lục phân":
-                        if (!IsHexadecimal(pText) || !IsHexadecimal(qText))
-                        {
-                            MessageBox.Show("P và Q phải là số thập lục phân!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
-                        }
-                        p = ParseHexadecimal(pText);
-                        q = ParseHexadecimal(qText);
-                        break;
-
-                    default:
-                        MessageBox.Show("Vui lòng chọn loại đầu vào hợp lệ từ danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case 1:
+                    if (!BigInteger.TryParse(pText, out p) || !BigInteger.TryParse(qText, out q))
+                    {
+                        MessageBox.Show("P và Q phải là số hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Dữ liệu nhập vào không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                    }
+                    break;
+
+                case 2:
+                    if (!IsBinary(pText) || !IsBinary(qText))
+                    {
+                        MessageBox.Show("P và Q phải là số nhị phân!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    p = ParseBinary(pText);
+                    q = ParseBinary(qText);
+                    break;
+
+                case 3:
+                    if (!IsHexadecimal(pText) || !IsHexadecimal(qText))
+                    {
+                        MessageBox.Show("P và Q phải là số thập lục phân!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    p = ParseHexadecimal(pText);
+                    q = ParseHexadecimal(qText);
+                    break;
+
+                default:
+                    MessageBox.Show("Vui lòng chọn loại đầu vào hợp lệ từ danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
             }
 
             if (!IsPrime(p) || !IsPrime(q))
@@ -236,6 +254,7 @@ namespace DoanAntoanMangmaytinh
                 MessageBox.Show("Nhập lại P và Q do tích của cả hai phải hơn 128", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
             num_p = p;
             num_q = q;
 
@@ -244,6 +263,7 @@ namespace DoanAntoanMangmaytinh
             PublicKeyTextBox.Text = $"e = {num_e}, n = {num_n}";
             PrivateKeyTextBox.Text = $"d = {num_d}, n = {num_n}";
             return true;
+
         }
 
         public Form1()
@@ -407,6 +427,32 @@ namespace DoanAntoanMangmaytinh
         {
             PTextbox.ReadOnly = false;
             QTextBox.ReadOnly = false;
+        }
+
+        private void ExportToFileButton1_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.WriteAllText(saveFileDialog.FileName, CypherTextBox1.Text);
+                    MessageBox.Show("Dữ liệu đã được xuất ra file.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void ExportToFileButton2_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.WriteAllText(saveFileDialog.FileName, PlainTextBox2.Text);
+                    MessageBox.Show("Dữ liệu đã được xuất ra file.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

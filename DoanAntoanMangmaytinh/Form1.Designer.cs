@@ -50,11 +50,13 @@
             EraseTextButton1 = new Button();
             E_DTab = new TabControl();
             EncryptTab = new TabPage();
+            ExportToFileButton1 = new Button();
             label7 = new Label();
             label6 = new Label();
             CypherTextBox1 = new TextBox();
             PlainTextBox1 = new TextBox();
             DecryptTab = new TabPage();
+            ExportToFileButton2 = new Button();
             label9 = new Label();
             label8 = new Label();
             PlainTextBox2 = new TextBox();
@@ -295,6 +297,7 @@
             // EncryptTab
             // 
             EncryptTab.BackColor = SystemColors.GradientInactiveCaption;
+            EncryptTab.Controls.Add(ExportToFileButton1);
             EncryptTab.Controls.Add(label7);
             EncryptTab.Controls.Add(label6);
             EncryptTab.Controls.Add(CypherTextBox1);
@@ -311,6 +314,17 @@
             EncryptTab.Size = new Size(1064, 289);
             EncryptTab.TabIndex = 0;
             EncryptTab.Text = "Encrypt Text Mode";
+            // 
+            // ExportToFileButton1
+            // 
+            ExportToFileButton1.Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ExportToFileButton1.Location = new Point(837, 90);
+            ExportToFileButton1.Name = "ExportToFileButton1";
+            ExportToFileButton1.Size = new Size(212, 34);
+            ExportToFileButton1.TabIndex = 23;
+            ExportToFileButton1.Text = "Xuất ra File";
+            ExportToFileButton1.UseVisualStyleBackColor = true;
+            ExportToFileButton1.Click += ExportToFileButton1_Click;
             // 
             // label7
             // 
@@ -354,6 +368,7 @@
             // DecryptTab
             // 
             DecryptTab.BackColor = SystemColors.GradientInactiveCaption;
+            DecryptTab.Controls.Add(ExportToFileButton2);
             DecryptTab.Controls.Add(label9);
             DecryptTab.Controls.Add(label8);
             DecryptTab.Controls.Add(PlainTextBox2);
@@ -370,6 +385,17 @@
             DecryptTab.Size = new Size(1064, 289);
             DecryptTab.TabIndex = 1;
             DecryptTab.Text = "Decrypt Text Mode";
+            // 
+            // ExportToFileButton2
+            // 
+            ExportToFileButton2.Font = new Font("Times New Roman", 11F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ExportToFileButton2.Location = new Point(837, 89);
+            ExportToFileButton2.Name = "ExportToFileButton2";
+            ExportToFileButton2.Size = new Size(212, 34);
+            ExportToFileButton2.TabIndex = 27;
+            ExportToFileButton2.Text = "Xuất ra File";
+            ExportToFileButton2.UseVisualStyleBackColor = true;
+            ExportToFileButton2.Click += ExportToFileButton2_Click;
             // 
             // label9
             // 
@@ -395,9 +421,10 @@
             // 
             PlainTextBox2.Font = new Font("Times New Roman", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
             PlainTextBox2.Location = new Point(207, 91);
+            PlainTextBox2.Multiline = true;
             PlainTextBox2.Name = "PlainTextBox2";
             PlainTextBox2.ReadOnly = true;
-            PlainTextBox2.Size = new Size(617, 33);
+            PlainTextBox2.Size = new Size(617, 31);
             PlainTextBox2.TabIndex = 24;
             // 
             // FileOpenButton2
@@ -525,5 +552,7 @@
         private Label label10;
         private ComboBox DetailNumberBox;
         private Button InputButton;
+        private Button ExportToFileButton1;
+        private Button ExportToFileButton2;
     }
 }
